@@ -29,7 +29,7 @@ namespace MovieLibrary.Core.Repositories
                 List<Category> categories = this.GetMovieCategories(item).ToList();
                 movieList.Add(new MovieToDisplay(item, categories));
             }
-            return movieList;
+            return movieList.OrderByDescending(m => m.ImdbRating);
 
           
         }
@@ -98,17 +98,20 @@ namespace MovieLibrary.Core.Repositories
 
         public List<MovieToDisplay> FilterByTitle(string title)
         {
-            return this.GetAllMovies().Where(m => m.Title.Contains(title)).ToList();
+            if (title == null)
+                return new List<MovieToDisplay>();
+            return this.GetAllMovies().Where(m => m.Title.ToLower().Contains(title.ToLower())).OrderByDescending(m => m.ImdbRating).ToList();
         }
         public List<MovieToDisplay> FilterByCategories(List<int> categoryIds)
         {
             
-            return this.GetAllMovies().Where(m => m.Categories.Select(c => c.Id).ToList().Intersect(categoryIds).Count() == categoryIds.Count).ToList();
+            return this.GetAllMovies().Where(m => m.Categories.Select(c => c.Id).ToList().Intersect(categoryIds).Count() == categoryIds.Count).OrderByDescending(m => m.ImdbRating).ToList();
         }
 
         public List<MovieToDisplay> FilterByRating(decimal min, decimal max)
         {
-            return this.GetAllMovies().Where(m => min <= m.ImdbRating && m.ImdbRating <= max).ToList();
+
+            return this.GetAllMovies().Where(m => min <= m.ImdbRating && m.ImdbRating <= max).OrderByDescending(m => m.ImdbRating).ToList();
         }
     }
 }
