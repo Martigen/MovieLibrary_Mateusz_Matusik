@@ -2,6 +2,7 @@
 using MovieLibrary.Core.Repositories.CategoryRepositories;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,28 @@ namespace MovieLibrary.Core.Repositories
         public CategoryRepository(MovieLibraryContext movieLibraryContext)
         {
             _movieLibraryContext = movieLibraryContext;
+        }
+
+        public IEnumerable<CategoryToDisplay> GetAllCategories(Paging paging)
+        {
+
+            List<CategoryToDisplay> categories = new List<CategoryToDisplay>();
+            foreach (Category item in _movieLibraryContext.Categories.ToList())
+            {
+                categories.Add(new CategoryToDisplay(item));
+            }
+            return categories.Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
+        }
+
+        public CategoryToDisplay GetCategoryById(int id)
+        {
+            Category category = _movieLibraryContext.Categories.Find(id);
+            if (category != null)
+            {
+                return new CategoryToDisplay(category);
+            }
+
+            return null;
         }
         public bool AddCategory(Category category)
         {
@@ -48,30 +71,6 @@ namespace MovieLibrary.Core.Repositories
                 return true;
             }
         }
-
-        public IEnumerable<CategoryToDisplay> GetAllCategories()
-        {
-
-            List<CategoryToDisplay> categories = new List<CategoryToDisplay>();
-            foreach (Category item in _movieLibraryContext.Categories.ToList())
-            {
-                categories.Add(new CategoryToDisplay(item));
-            }
-            return categories;
-        }
-
-        public CategoryToDisplay GetCategoryById(int id)
-        {
-            Category category = _movieLibraryContext.Categories.Find(id);
-            if (category != null)
-            {
-                return new CategoryToDisplay(category);
-            }
-            
-            return null;
-        }
-
-     
 
         public bool UpdateCategory(Category category)
         {

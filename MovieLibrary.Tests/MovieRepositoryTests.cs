@@ -3,6 +3,7 @@ using MovieLibrary.Api.Models;
 using MovieLibrary.Core.Repositories;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace MovieLibrary.Tests
         {
             // Arrange
             var movieRepository = new MovieRepository(_movieLibraryContext);
-
+            Paging paging = new Paging();
             // Act
-            var result = movieRepository.GetAllMovies();
+            var result = movieRepository.GetAllMovies(paging);
 
 
             // Verify
@@ -134,10 +135,11 @@ namespace MovieLibrary.Tests
         {
             // Arrange
             var movieRepository = new MovieRepository(_movieLibraryContext);
+            Paging paging = new Paging();
             string title = "harry";
             // Act
 
-            var result = movieRepository.FilterByTitle(title);
+            var result = movieRepository.FilterByTitle(paging,title);
 
             // Verify
 
@@ -156,12 +158,13 @@ namespace MovieLibrary.Tests
         {
             // Arrange
             var movieRepository = new MovieRepository(_movieLibraryContext);
+            Paging paging = new Paging();
             List<int> categoriesId = new List<int>();
             categoriesId.Add(2);
             categoriesId.Add(6);
             // Act
 
-            var result = movieRepository.FilterByCategories(categoriesId);
+            var result = movieRepository.FilterByCategories(paging, categoriesId);
 
             // Verify
 
@@ -180,11 +183,12 @@ namespace MovieLibrary.Tests
         {
             // Arrange
             var movieRepository = new MovieRepository(_movieLibraryContext);
+            Paging paging = new Paging();
             decimal min = 8;
             decimal max = 9;
             // Act
 
-            var result = movieRepository.FilterByRating(min,max);
+            var result = movieRepository.FilterByRating(paging, min,max);
 
             // Verify
 

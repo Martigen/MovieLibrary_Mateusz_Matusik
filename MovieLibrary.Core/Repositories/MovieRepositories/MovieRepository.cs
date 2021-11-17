@@ -1,6 +1,7 @@
 ﻿using MovieLibrary.Api.Models;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,8 @@ namespace MovieLibrary.Core.Repositories
         }
 
 
-        public IEnumerable<MovieToDisplay> GetAllMovies()
+        private IEnumerable<MovieToDisplay> GetAllWithoutPaging()
         {
-
             List<MovieToDisplay> movieList = new List<MovieToDisplay>();
             foreach (Movie item in _movieLibraryContext.Movies.ToList())
             {
@@ -31,8 +31,15 @@ namespace MovieLibrary.Core.Repositories
             }
             return movieList.OrderByDescending(m => m.ImdbRating).ToList();
 
-          
         }
+
+        public IEnumerable<MovieToDisplay> GetAllMovies(Paging paging)
+        {
+            return GetAllWithoutPaging().Skip((paging.PageNumber -1)* paging.PageSize).Take(paging.PageSize).ToList();
+        }
+
+ 
+
         public MovieToDisplay GetMovieById(int id)
         {
             Movie movie = _movieLibraryContext.Movies.Find(id);
@@ -96,22 +103,24 @@ namespace MovieLibrary.Core.Repositories
             return _movieLibraryContext.MovieCategories.Where(mc => mc.Movie == movie).Select(c => c.Category).ToList();
         }
 
-        public List<MovieToDisplay> FilterByTitle(string title)
+        public List<MovieToDisplay> FilterByTitle(Paging paging, string title)
         {
             if (title == null)
                 return new List<MovieToDisplay>();
-            return this.GetAllMovies().Where(m => m.Title.ToLower().Contains(title.ToLower())).OrderByDescending(m => m.ImdbRating).ToList();
+
+            
+            return GetAllWithoutPaging().Where(m => m.Title.ToLower().Contains(title.ToLower())).OrderByDescending(m => m.ImdbRating).Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
         }
-        public List<MovieToDisplay> FilterByCategories(List<int> categoryIds)
+        public List<MovieToDisplay> FilterByCategories(Paging paging, List<int> categoryIds)
         {
             
-            return this.GetAllMovies().Where(m => m.Categories.Select(c => c.Id).ToList().Intersect(categoryIds).Count() == categoryIds.Count).OrderByDescending(m => m.ImdbRating).ToList();
+            return GetAllWithoutPaging().Where(m => m.Categories.Select(c => c.Id).ToList().Intersect(categoryIds).Count() == categoryIds.Count).OrderByDescending(m => m.ImdbRating).Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
         }
 
-        public List<MovieToDisplay> FilterByRating(decimal min, decimal max)
+        public List<MovieToDisplay> FilterByRating(Paging paging, decimal min, decimal max)
         {
 
-            return this.GetAllMovies().Where(m => min <= m.ImdbRating && m.ImdbRating <= max).OrderByDescending(m => m.ImdbRating).ToList();
+            return GetAllWithoutPaging().Where(m => min <= m.ImdbRating && m.ImdbRating <= max).OrderByDescending(m => m.ImdbRating).Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
         }
     }
 }

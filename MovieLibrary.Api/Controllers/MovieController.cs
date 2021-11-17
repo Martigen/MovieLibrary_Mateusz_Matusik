@@ -4,6 +4,7 @@ using MovieLibrary.Core.Repositories;
 using MovieLibrary.Core.Repositories.CategoryRepositories;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,20 +17,20 @@ namespace MovieLibrary.Api.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieRepository _movieRepository;
-      
+
 
         public MovieController(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-           
+
         }
 
 
         [HttpGet]
-        public IEnumerable<MovieToDisplay> GetMovies()
+        public IEnumerable<MovieToDisplay> GetMovies([FromQuery] Paging paging)
         {
 
-            return _movieRepository.GetAllMovies();
+            return _movieRepository.GetAllMovies(paging);
                
            
         }

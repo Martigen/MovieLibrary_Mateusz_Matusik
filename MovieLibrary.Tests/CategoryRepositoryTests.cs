@@ -3,6 +3,7 @@ using MovieLibrary.Api.Models;
 using MovieLibrary.Core.Repositories;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,9 @@ namespace MovieLibrary.Tests
         {
             // Arrange
             var categoryRepository = new CategoryRepository(_movieLibraryContext);
-
+            Paging paging = new Paging();
             // Act
-            var result = categoryRepository.GetAllCategories();
+            var result = categoryRepository.GetAllCategories(paging);
 
 
             // Verify

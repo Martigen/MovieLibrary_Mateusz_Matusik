@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieLibrary.Api.Models;
 using MovieLibrary.Core.Repositories;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,23 +24,23 @@ namespace MovieLibrary.Api.Controllers
         }
 
         [HttpPost("title/{title}")]
-        public List<MovieToDisplay> FilterMovieByTitle(string title)
+        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] Paging paging, string title)
         {
-            return _movieRepository.FilterByTitle(title);
+            return _movieRepository.FilterByTitle(paging, title);
         }
 
 
         [HttpPost("categories")]
-        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] int[] categoryIds)
+        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] Paging paging, [FromQuery] int[] categoryIds)
         {
 
-            return _movieRepository.FilterByCategories(new List<int>(categoryIds));
+            return _movieRepository.FilterByCategories(paging, new List<int>(categoryIds));
         }
 
         [HttpPost("min/{min}/max/{max}")]
-        public List<MovieToDisplay> FilterMovieByTitle(decimal min,decimal max)
+        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] Paging paging, decimal min,decimal max)
         {
-            return _movieRepository.FilterByRating(min, max);
+            return _movieRepository.FilterByRating(paging, min, max);
         }
     }
 }

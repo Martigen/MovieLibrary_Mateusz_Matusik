@@ -3,6 +3,7 @@ using MovieLibrary.Api.Models;
 using MovieLibrary.Core.Repositories;
 using MovieLibrary.Core.Repositories.CategoryRepositories;
 using MovieLibrary.Data.Entities;
+using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +27,10 @@ namespace MovieLibrary.Api.Controllers
 
 
         [HttpGet]
-        public IEnumerable<CategoryToDisplay> GetCategories()
+        public IEnumerable<CategoryToDisplay> GetCategories([FromQuery] Paging paging)
         {
 
-            return _categoryRepository.GetAllCategories();
+            return _categoryRepository.GetAllCategories(paging);
 
 
         }
