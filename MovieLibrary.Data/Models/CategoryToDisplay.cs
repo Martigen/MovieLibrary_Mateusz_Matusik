@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary.Api.Models
 {
-    public class CategoryToDispaly
+    public class CategoryToDisplay
     {
 
-        public CategoryToDispaly()
+        public CategoryToDisplay()
         {
 
         }
@@ -18,13 +18,13 @@ namespace MovieLibrary.Api.Models
 
         public string Name { get; set; }
 
-        public CategoryToDispaly(Category category)
+        public CategoryToDisplay(Category category)
         {
             this.Id = category.Id;
             this.Name = category.Name;
         }
 
-        public CategoryToDispaly(int id, string name)
+        public CategoryToDisplay(int id, string name)
         {
             this.Id = id;
             this.Name = name;

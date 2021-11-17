@@ -10,7 +10,7 @@ namespace MovieLibrary.Api.Models
     {
         public MovieToDisplay()
         {
-            this.Categories = new List<CategoryToDispaly>();
+            this.Categories = new List<CategoryToDisplay>();
         }
 
         public MovieToDisplay(Movie movie, List<Category> categories)
@@ -20,7 +20,7 @@ namespace MovieLibrary.Api.Models
             this.Description = movie.Description;
             this.Year = movie.Year;
             this.ImdbRating = movie.ImdbRating;
-            this.Categories = categories.Select(c => new CategoryToDispaly()
+            this.Categories = categories.Select(c => new CategoryToDisplay()
             {
                 Id = c.Id,
                 Name = c.Name
@@ -38,6 +38,6 @@ namespace MovieLibrary.Api.Models
 
         public decimal ImdbRating { get; set; }
 
-        public virtual ICollection<CategoryToDispaly> Categories { get; set; }
+        public virtual ICollection<CategoryToDisplay> Categories { get; set; }
     }
 }

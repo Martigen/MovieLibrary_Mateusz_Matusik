@@ -26,16 +26,16 @@ namespace MovieLibrary.Api.Controllers
 
 
         [HttpGet]
-        public IEnumerable<CategoryToDispaly> GetCategories()
+        public IEnumerable<CategoryToDisplay> GetCategories()
         {
 
-            return _categoryRepository.GetAllategories();
+            return _categoryRepository.GetAllCategories();
 
 
         }
 
         [HttpGet("{id}")]
-        public CategoryToDispaly GetCategory(int id)
+        public CategoryToDisplay GetCategory(int id)
         {
             return _categoryRepository.GetCategoryById(id);
         }

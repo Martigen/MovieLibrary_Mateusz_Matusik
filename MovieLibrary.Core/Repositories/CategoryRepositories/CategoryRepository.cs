@@ -49,23 +49,23 @@ namespace MovieLibrary.Core.Repositories
             }
         }
 
-        public IEnumerable<CategoryToDispaly> GetAllategories()
+        public IEnumerable<CategoryToDisplay> GetAllCategories()
         {
 
-            List<CategoryToDispaly> categories = new List<CategoryToDispaly>();
+            List<CategoryToDisplay> categories = new List<CategoryToDisplay>();
             foreach (Category item in _movieLibraryContext.Categories.ToList())
             {
-                categories.Add(new CategoryToDispaly(item));
+                categories.Add(new CategoryToDisplay(item));
             }
             return categories;
         }
 
-        public CategoryToDispaly GetCategoryById(int id)
+        public CategoryToDisplay GetCategoryById(int id)
         {
             Category category = _movieLibraryContext.Categories.Find(id);
             if (category != null)
             {
-                return new CategoryToDispaly(category);
+                return new CategoryToDisplay(category);
             }
             
             return null;

@@ -29,7 +29,7 @@ namespace MovieLibrary.Core.Repositories
                 List<Category> categories = this.GetMovieCategories(item).ToList();
                 movieList.Add(new MovieToDisplay(item, categories));
             }
-            return movieList.OrderByDescending(m => m.ImdbRating);
+            return movieList.OrderByDescending(m => m.ImdbRating).ToList();
 
           
         }

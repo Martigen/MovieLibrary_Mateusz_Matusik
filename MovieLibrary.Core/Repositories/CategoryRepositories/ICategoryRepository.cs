@@ -9,11 +9,11 @@ namespace MovieLibrary.Core.Repositories.CategoryRepositories
     public interface ICategoryRepository
     {
 
-        IEnumerable<CategoryToDispaly> GetAllategories();
+        IEnumerable<CategoryToDisplay> GetAllCategories();
         bool AddCategory(Category category);
         bool DeleteCategory(int id);
         bool UpdateCategory(Category category);
-        CategoryToDispaly GetCategoryById(int id);
+        CategoryToDisplay GetCategoryById(int id);
        
     }
 }
