@@ -20,7 +20,7 @@ namespace MovieLibrary.Core.Repositories
             _movieLibraryContext = movieLibraryContext;
         }
 
-        public IEnumerable<CategoryToDisplay> GetAllCategories(Paging paging)
+        public PagedList<CategoryToDisplay> GetAllCategories(Paging paging)
         {
 
             List<CategoryToDisplay> categories = new List<CategoryToDisplay>();
@@ -28,7 +28,13 @@ namespace MovieLibrary.Core.Repositories
             {
                 categories.Add(new CategoryToDisplay(item));
             }
-            return categories.Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
+            //var categoriesList = categories.Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
+
+            return PagedList<CategoryToDisplay>.ToPagedList(categories,
+                paging.PageNumber,
+                paging.PageSize);
+
+
         }
 
         public CategoryToDisplay GetCategoryById(int id)

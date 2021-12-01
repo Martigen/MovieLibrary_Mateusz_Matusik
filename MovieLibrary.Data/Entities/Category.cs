@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MovieLibrary.Data.Entities
 {
@@ -13,6 +14,7 @@ namespace MovieLibrary.Data.Entities
 
         public string Name { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<MovieCategory> MovieCategories { get; set; }
     }
 }

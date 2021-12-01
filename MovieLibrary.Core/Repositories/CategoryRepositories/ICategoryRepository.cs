@@ -10,7 +10,7 @@ namespace MovieLibrary.Core.Repositories.CategoryRepositories
     public interface ICategoryRepository
     {
 
-        IEnumerable<CategoryToDisplay> GetAllCategories(Paging paging);
+        PagedList<CategoryToDisplay> GetAllCategories(Paging paging);
         bool AddCategory(Category category);
         bool DeleteCategory(int id);
         bool UpdateCategory(Category category);

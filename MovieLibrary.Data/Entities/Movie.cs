@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace MovieLibrary.Data.Entities
 {
@@ -19,6 +20,7 @@ namespace MovieLibrary.Data.Entities
 
         public decimal ImdbRating { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<MovieCategory> MovieCategories { get; set; }
     }
 }

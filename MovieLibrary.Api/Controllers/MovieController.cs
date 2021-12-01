@@ -8,7 +8,7 @@ using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace MovieLibrary.Api.Controllers
 {
@@ -30,9 +30,21 @@ namespace MovieLibrary.Api.Controllers
         public IEnumerable<MovieToDisplay> GetMovies([FromQuery] Paging paging)
         {
 
-            return _movieRepository.GetAllMovies(paging);
+            var movies = _movieRepository.GetAllMovies(paging);
+
+            var metadata = new
+            {
+                movies.TotalCount,
+                movies.PageSize,
+                movies.CurrentPage,
+                movies.TotalPages,
+                movies.HasNext,
+                movies.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+            return movies;
                
-           
         }
 
         [HttpGet("{id}")]

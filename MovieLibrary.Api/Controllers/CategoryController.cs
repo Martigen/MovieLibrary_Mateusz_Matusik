@@ -7,6 +7,7 @@ using MovieLibrary.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MovieLibrary.Api.Controllers
@@ -30,7 +31,23 @@ namespace MovieLibrary.Api.Controllers
         public IEnumerable<CategoryToDisplay> GetCategories([FromQuery] Paging paging)
         {
 
-            return _categoryRepository.GetAllCategories(paging);
+
+            var categories = _categoryRepository.GetAllCategories(paging);
+
+            var metadata = new
+            {
+                categories.TotalCount,
+                categories.PageSize,
+                categories.CurrentPage,
+                categories.TotalPages,
+                categories.HasNext,
+                categories.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+            return categories;
+
+            //return _categoryRepository.GetAllCategories(paging);
 
 
         }
