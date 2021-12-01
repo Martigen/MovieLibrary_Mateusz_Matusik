@@ -44,7 +44,7 @@ namespace MovieLibrary.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return movies;
-               
+
         }
 
         [HttpGet("{id}")]

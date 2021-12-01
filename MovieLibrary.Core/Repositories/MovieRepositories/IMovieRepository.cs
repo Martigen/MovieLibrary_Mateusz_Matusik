@@ -18,7 +18,6 @@ namespace MovieLibrary.Core.Repositories
         PagedList<MovieToDisplay> FilterByCategories(Paging paging, List<int> categoryIds);
         PagedList<MovieToDisplay> FilterByRating(Paging paging, decimal min, decimal max);
 
-       
 
 
     }

@@ -63,11 +63,11 @@ namespace MovieLibrary.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return movies;
-           
+
         }
 
         [HttpPost("min/{min}/max/{max}")]
-        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] Paging paging, decimal min,decimal max)
+        public List<MovieToDisplay> FilterMovieByTitle([FromQuery] Paging paging, decimal min, decimal max)
         {
             var movies = _movieRepository.FilterByRating(paging, min, max);
 
@@ -83,7 +83,7 @@ namespace MovieLibrary.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
             return movies;
-       
+
         }
     }
 }

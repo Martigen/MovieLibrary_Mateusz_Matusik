@@ -28,7 +28,7 @@ namespace MovieLibrary.Core.Repositories
             {
                 categories.Add(new CategoryToDisplay(item));
             }
-            //var categoriesList = categories.Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToList();
+
 
             return PagedList<CategoryToDisplay>.ToPagedList(categories,
                 paging.PageNumber,
@@ -93,6 +93,6 @@ namespace MovieLibrary.Core.Repositories
             }
         }
 
-        
+
     }
 }

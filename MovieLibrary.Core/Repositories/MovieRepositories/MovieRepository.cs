@@ -35,19 +35,19 @@ namespace MovieLibrary.Core.Repositories
 
         public PagedList<MovieToDisplay> GetAllMovies(Paging paging)
         {
-           return PagedList<MovieToDisplay>.ToPagedList(GetAllWithoutPaging(),
-                paging.PageNumber,
-                paging.PageSize);
+            return PagedList<MovieToDisplay>.ToPagedList(GetAllWithoutPaging(),
+                 paging.PageNumber,
+                 paging.PageSize);
 
             //return GetAllWithoutPaging().Skip((paging.PageNumber - 1) * paging.PageSize).Take(paging.PageSize).ToPagedList();
         }
 
- 
+
 
         public MovieToDisplay GetMovieById(int id)
         {
             Movie movie = _movieLibraryContext.Movies.Find(id);
-            if(movie != null)
+            if (movie != null)
             {
                 return new MovieToDisplay(movie, this.GetMovieCategories(movie).ToList());
             }
@@ -64,7 +64,7 @@ namespace MovieLibrary.Core.Repositories
             }
             else
             {
-     
+
                 _movieLibraryContext.Movies.Add(movie);
                 _movieLibraryContext.SaveChanges();
                 return true;
@@ -111,16 +111,16 @@ namespace MovieLibrary.Core.Repositories
         public PagedList<MovieToDisplay> FilterByTitle(Paging paging, string title)
         {
             if (title == null)
-                return new PagedList<MovieToDisplay>(null,0,0,0);
+                return new PagedList<MovieToDisplay>(null, 0, 0, 0);
 
-           return PagedList<MovieToDisplay>.ToPagedList(GetAllWithoutPaging().Where(m => m.Title.ToLower().Contains(title.ToLower())).OrderByDescending(m => m.ImdbRating),
-               paging.PageNumber,
-               paging.PageSize);
+            return PagedList<MovieToDisplay>.ToPagedList(GetAllWithoutPaging().Where(m => m.Title.ToLower().Contains(title.ToLower())).OrderByDescending(m => m.ImdbRating),
+                paging.PageNumber,
+                paging.PageSize);
 
         }
         public PagedList<MovieToDisplay> FilterByCategories(Paging paging, List<int> categoryIds)
         {
-            
+
             return PagedList<MovieToDisplay>.ToPagedList(GetAllWithoutPaging().Where(m => m.Categories.Select(c => c.Id).ToList().Intersect(categoryIds).Count() == categoryIds.Count).OrderByDescending(m => m.ImdbRating),
             paging.PageNumber,
             paging.PageSize);

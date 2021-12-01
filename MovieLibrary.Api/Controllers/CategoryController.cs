@@ -20,9 +20,9 @@ namespace MovieLibrary.Api.Controllers
 
         private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryController( ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-         
+
             _categoryRepository = categoryRepository;
         }
 

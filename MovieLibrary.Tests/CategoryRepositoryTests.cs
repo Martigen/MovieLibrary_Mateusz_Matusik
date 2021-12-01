@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieLibrary.Api.Models;
+﻿using MovieLibrary.Api.Models;
 using MovieLibrary.Core.Repositories;
 using MovieLibrary.Data;
 using MovieLibrary.Data.Entities;
 using MovieLibrary.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -127,38 +125,5 @@ namespace MovieLibrary.Tests
             Assert.True(_movieLibraryContext.Categories.Any(c => c.Name == category.Name));
 
         }
-
-        /*
-                 foreach (int _id in id)
-                        movies.Add(new Movie
-                        {
-                            Id = _id,
-                            Title = "movie" + _id,
-                            Description = "description" + _id,
-                            Year = 2000 + _id,
-                            ImdbRating = 1 + _id,
-                            MovieCategories = new List<MovieCategory>()
-            });
-
-                    categories = new List<Category>();
-
-                    foreach (int _id in Enumerable.Range(1,6))
-                        categories.Add(new Category
-                        {
-                            Name = "category" + _id,               
-                            MovieCategories = new List<MovieCategory>()
-        });
-
-
-        movieCategories = new List<MovieCategory>();
-        foreach (int _id in id)
-            movieCategories.Add(new MovieCategory
-            {
-                MovieId = _id,
-                CategoryId = _id,
-                Movie = movies[_id - 1],
-                Category = categories[_id - 1],
-            });
-        */
     }
 }

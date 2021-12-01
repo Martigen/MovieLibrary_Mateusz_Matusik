@@ -25,7 +25,7 @@ namespace MovieLibrary.Api.Models
                 Id = c.Id,
                 Name = c.Name
             }).ToList();
-            
+
         }
 
         public int Id { get; set; }

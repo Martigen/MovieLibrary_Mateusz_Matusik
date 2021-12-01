@@ -24,7 +24,7 @@ namespace MovieLibrary.Tests
 
         public MovieRepositoryTests()
         {
-          
+
             _movieLibraryContext = new MovieLibraryContext();
         }
 
@@ -64,7 +64,7 @@ namespace MovieLibrary.Tests
             Assert.NotNull(result);
             Assert.True(result.GetType() == typeof(MovieToDisplay));
             Assert.True(_movieLibraryContext.Movies.Any(m => m.Title == result.Title && m.Year == result.Year && m.Id == result.Id));
-            
+
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace MovieLibrary.Tests
             int id = _movieLibraryContext.Movies.Select(m => m.Id).Max();
 
             // Act
-            
+
             var result = movieRepository.DeleteMovie(id);
             var result2 = movieRepository.DeleteMovie(id);
 
@@ -142,7 +142,7 @@ namespace MovieLibrary.Tests
             string title = "harry";
             // Act
 
-            var result = movieRepository.FilterByTitle(paging,title);
+            var result = movieRepository.FilterByTitle(paging, title);
 
             // Verify
 
@@ -191,7 +191,7 @@ namespace MovieLibrary.Tests
             decimal max = 9;
             // Act
 
-            var result = movieRepository.FilterByRating(paging, min,max);
+            var result = movieRepository.FilterByRating(paging, min, max);
 
             // Verify
 
@@ -205,6 +205,6 @@ namespace MovieLibrary.Tests
 
         }
 
-        
+
     }
 }
