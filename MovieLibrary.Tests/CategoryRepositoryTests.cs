@@ -13,6 +13,11 @@ using Xunit;
 namespace MovieLibrary.Tests
 {
 
+
+    // Before running tests copy "MovieLibrary.db" from "\src\MovieLibrary.Api" to "\src\MovieLibrary.Tests\bin\Debug\netcoreapp3.1"
+
+
+
     public class CategoryRepositoryTests
     {
         private MovieLibraryContext _movieLibraryContext;
